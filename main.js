@@ -58,12 +58,13 @@ userInput.addEventListener("keyup", async function () {
             if (repos.length > 0) {
                 repositories.innerHTML = "";
             }
+            console.log(repos)
             for (let repo of repos) {
                 let dates = getDays(repo['updated_at']);
                 repositories.innerHTML += `            
-                <div class="repository">
+                <a href="${repo['html_url']}" target="_blank" class="repository">
                     <h2>${repo['name']}</h2>
-                    <p>${repo['description']}</p>
+                    <p>${repo['description'] != null ? repo['description'] : 'No description for this repository.'}</p>
                     <div class="repo-details">
                         <div class="forked">
                             <i class="fa-solid fa-code-fork"></i>
@@ -79,7 +80,7 @@ userInput.addEventListener("keyup", async function () {
                             ${dates[2] > 0 ? `${dates[2]} days`: ''} ago
                         </div>
                     </div>
-                </div>`;
+                </a>`;
             }
             const allRepositories = document.querySelectorAll(".repositories .repository");
             for (let i = 4; i < allRepositories.length; i++) {
